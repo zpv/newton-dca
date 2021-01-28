@@ -104,11 +104,12 @@ const NewtonBUY = async (path, quantity, price) => {
 
   socket.on('update', async (data) => {
     if (!(+NEXT_BUY < +new Date())) return;
-    console.log(`[DCA] Buying at $${ask}`);
 
     const { ask } = data;
-    NEXT_BUY = nextBuy();
+    console.log(`[DCA] Buying at $${ask}`);
+
     try {
+      NEXT_BUY = nextBuy();
       await NewtonBUY(
         'order/new',
         (ORDER_SIZE / ask).toFixed(4),
